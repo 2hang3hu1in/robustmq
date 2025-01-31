@@ -27,6 +27,7 @@ members = [
     "src/grpc-clients",
     "src/cmd",
     "src/common/base",
+    "src/common/jwt",
     "src/common/rocksdb-engine",
     "src/common/metadata-struct",
     "src/common/third-driver",
