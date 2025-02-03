@@ -14,7 +14,7 @@
 
 use crate::json_web_token::RevokedAccessToken;
 use axum::async_trait;
-use common_base::{error::common::CommonError, utils::expiry};
+use common_base::error::common::CommonError;
 use rocksdb_engine::RocksDBEngine;
 use std::sync::Arc;
 

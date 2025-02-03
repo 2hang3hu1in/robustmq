@@ -17,15 +17,10 @@ use std::{
     sync::Arc,
 };
 
-use axum::extract::State;
-use common_base::http_response::success_response;
-use protocol::mqtt::common::Login;
-
-use crate::security::login::plaintext::Plaintext;
-
 use super::server::HttpServerState;
-
-use axum::{extract::Json, http::StatusCode, routing::post, Router};
+use axum::extract::State;
+use axum::{extract::Json, http::StatusCode};
+use protocol::mqtt::common::Login;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -66,7 +61,7 @@ pub async fn http_login(
                 return Err(StatusCode::UNAUTHORIZED);
             }
         }
-        Err(e) => {
+        Err(_) => {
             return Err(StatusCode::UNAUTHORIZED);
         }
     }

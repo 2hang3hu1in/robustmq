@@ -31,8 +31,8 @@ use common_base::config::broker_mqtt::broker_mqtt_conf;
 use common_jwt::jwt_manager::JwtManager;
 use common_jwt::jwt_manager::{IssuerOptions, JwtManagerAdapter, ValidatorOptions};
 use common_jwt::storage::RokcsDBTokenStorageAdapter;
-use jsonwebtoken::{Algorithm, DecodingKey, EncodingKey, Header, Validation};
-use std::sync::{Arc, LazyLock, Mutex, MutexGuard};
+use jsonwebtoken::{Algorithm, DecodingKey, EncodingKey};
+use std::sync::{Arc, LazyLock};
 
 pub const ROKCSDBTYPE: &str = "rocksdb";
 
