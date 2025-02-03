@@ -207,7 +207,8 @@ where
     }
 
     fn start_http_server(&self) {
-        let http_state = HttpServerState::new();
+        let auth_driver = self.auth_driver.clone();
+        let http_state = Arc::new(HttpServerState::new(auth_driver));
         self.runtime.spawn(async move {
             match start_http_server(http_state).await {
                 Ok(_) => {}

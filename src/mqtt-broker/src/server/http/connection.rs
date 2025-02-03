@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::server::HttpServerState;
 use axum::extract::State;
 use common_base::http_response::success_response;
+use std::sync::Arc;
 
-use super::server::HttpServerState;
-
-pub async fn connection_list(State(_): State<HttpServerState>) -> String {
+pub async fn connection_list(State(_): State<Arc<HttpServerState>>) -> String {
     success_response("data")
 }

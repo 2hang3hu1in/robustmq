@@ -43,6 +43,24 @@ pub struct Log {
     pub log_path: String,
 }
 
+#[derive(Debug, Deserialize, Serialize, Clone, Default, PartialEq, Eq)]
+pub struct JWT {
+    pub enable: bool,
+    pub storage_type: String,
+    pub storage_path: String,
+    pub algorithm: String,
+    pub issuer: String,
+    pub audience: String,
+    pub valid_issuers: Vec<String>,
+    pub valid_audiences: Vec<String>,
+    pub access_token_expiry: String,
+    pub clock_skew: String,
+    pub not_before: String,
+    pub encoding_secret: String,
+    pub decoding_secret: String,
+    pub use_base64_secret: bool,
+}
+
 /** `override_default_by_env` 根据环境变量覆盖内容
 
 ```

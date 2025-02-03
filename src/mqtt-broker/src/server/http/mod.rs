@@ -13,6 +13,7 @@
 // limitations under the License.
 
 mod connection;
+mod login;
 mod prometheus;
 mod publish;
 pub mod server;

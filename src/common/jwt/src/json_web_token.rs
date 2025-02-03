@@ -11,3 +11,38 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+use serde::{Deserialize, Serialize};
+use std::net::SocketAddr;
+
+#[derive(Debug, Clone)]
+pub struct Identity {
+    pub token_id: String,
+    pub token_expiry: u64,
+    pub user_id: String,
+    pub ip_address: SocketAddr,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct JwtClaims {
+    pub jti: String, // JWT ID
+    pub iss: String, // Issuer
+    pub aud: String, // Audience
+    pub sub: String, // Subject
+    pub iat: u64,    // Issued At
+    pub exp: u64,    // Expiration Time
+    pub nbf: u64,    // Not Before
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RevokedAccessToken {
+    pub id: String,
+    pub expiry: u64,
+}
+
+#[derive(Debug)]
+pub struct GeneratedToken {
+    pub user_id: String,
+    pub access_token: String,
+    pub access_token_expiry: u64,
+}

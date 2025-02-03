@@ -13,31 +13,44 @@
 // limitations under the License.
 
 use std::net::SocketAddr;
+use std::sync::Arc;
 
-use axum::routing::get;
+use axum::routing::{get, post};
 use axum::Router;
 use common_base::config::broker_mqtt::broker_mqtt_conf;
 use common_base::error::common::CommonError;
+use common_jwt::jwt_manager::JwtManager;
 use log::info;
 
+use crate::security::login::jwt::load_global_jwt_manager;
+use crate::security::AuthDriver;
+
 use super::connection::connection_list;
+use super::login::http_login;
 use super::prometheus::metrics;
 use super::publish::http_publish;
 
 pub const ROUTE_PUBLISH: &str = "/publish";
 pub const ROUTE_CONNECTION: &str = "/connection";
 pub const ROUTE_METRICS: &str = "/metrics";
+pub const ROUTE_LOGIN: &str = "/login";
 
 #[derive(Clone)]
-pub struct HttpServerState {}
+pub struct HttpServerState {
+    pub jwt_manager: Arc<dyn JwtManager + Send + Sync>,
+    pub auth_driver: Arc<AuthDriver>,
+}
 
 impl HttpServerState {
-    pub fn new() -> Self {
-        Self {}
+    pub fn new(auth_driver: Arc<AuthDriver>) -> Self {
+        Self {
+            jwt_manager: load_global_jwt_manager(),
+            auth_driver,
+        }
     }
 }
 
-pub async fn start_http_server(state: HttpServerState) -> Result<(), CommonError> {
+pub async fn start_http_server(state: Arc<HttpServerState>) -> Result<(), CommonError> {
     let config = broker_mqtt_conf();
     let ip: SocketAddr = format!("0.0.0.0:{}", config.http_port).parse()?;
     let app = routes_v1(state);
@@ -50,12 +63,11 @@ pub async fn start_http_server(state: HttpServerState) -> Result<(), CommonError
     Ok(())
 }
 
-fn routes_v1(state: HttpServerState) -> Router {
-    let meta = Router::new()
+fn routes_v1(state: Arc<HttpServerState>) -> Router {
+    Router::<Arc<HttpServerState>>::new()
         .route(ROUTE_PUBLISH, get(http_publish))
         .route(ROUTE_CONNECTION, get(connection_list))
-        .route(ROUTE_METRICS, get(metrics));
-
-    let app = Router::new().merge(meta);
-    app.with_state(state)
+        .route(ROUTE_METRICS, get(metrics))
+        .route(ROUTE_LOGIN, post(http_login))
+        .with_state(state)
 }

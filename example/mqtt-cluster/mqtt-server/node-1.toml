@@ -41,6 +41,22 @@ lock_try_mut_sleep_time_ms = 50
 [auth]
 storage_type = "placement"
 
+[jwt]
+enable = true
+storage_type = "rocksdb"
+storage_path = "./robust-data-test/mqtt-broker-1/jwt-storage"
+algorithm = "HS256"
+issuer = "robustmq"
+audience = "robustmq"
+valid_issuers = ["robustmq"]
+valid_audiences = ["robustmq"]
+access_token_expiry = "1 h"
+clock_skew = "5 s"
+not_before = "0 s"
+encoding_secret = "top_secret$robustmq$_jwt_HS256_key#!"
+decoding_secret = "top_secret$robustmq$_jwt_HS256_key#!"
+use_base64_secret = false
+
 [prometheus]
 model = "push"
 push_gateway_server = "127.0.0.1:8081"

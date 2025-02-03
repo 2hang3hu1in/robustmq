@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::broker_mqtt::{Network, System, TcpThread};
-use super::common::{Auth, Log, Storage};
+use super::common::{Auth, Log, Storage, JWT};
 
 pub fn default_grpc_port() -> u32 {
     9981
@@ -97,5 +97,24 @@ pub fn default_auth() -> Auth {
         storage_type: "memory".to_string(),
         journal_addr: "".to_string(),
         mysql_addr: "".to_string(),
+    }
+}
+
+pub fn default_jwt() -> JWT {
+    JWT {
+        enable: false,
+        storage_type: "rocksdb".to_string(),
+        storage_path: "./robust-data/mqtt-broker-1/jwt-storage".to_string(),
+        algorithm: "HS256".to_string(),
+        issuer: "robustmq.com".to_string(),
+        audience: "robustmq.com".to_string(),
+        valid_issuers: vec!["robustmq.com".to_string()],
+        valid_audiences: vec!["robustmq.com".to_string()],
+        access_token_expiry: "1 h".to_string(),
+        clock_skew: "5 s".to_string(),
+        not_before: "0 s".to_string(),
+        encoding_secret: "top_secret$robustmq.com$_jwt_HS256_key#!".to_string(),
+        decoding_secret: "top_secret$robustmq.com$_jwt_HS256_key#!".to_string(),
+        use_base64_secret: false,
     }
 }

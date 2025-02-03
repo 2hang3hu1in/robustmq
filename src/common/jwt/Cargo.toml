@@ -13,9 +13,17 @@
 # limitations under the License.
 
 [package]
-name = "jwt"
+name = "common-jwt"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 
 [dependencies]
+serde.workspace = true
+serde_json.workspace = true
+rocksdb-engine.workspace = true
+common-base.workspace = true
+jsonwebtoken.workspace = true
+dashmap.workspace = true
+axum.workspace = true
+tokio.workspace = true

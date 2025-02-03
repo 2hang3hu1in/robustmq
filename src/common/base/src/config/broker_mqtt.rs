@@ -32,9 +32,9 @@ use std::sync::OnceLock;
 
 use serde::{Deserialize, Serialize};
 
-use super::common::{override_default_by_env, Auth, Log, Storage};
+use super::common::{override_default_by_env, Auth, Log, Storage, JWT};
 use super::default_mqtt::{
-    default_auth, default_grpc_port, default_http_port, default_log, default_network,
+    default_auth, default_grpc_port, default_http_port, default_jwt, default_log, default_network,
     default_network_quic_port, default_network_tcp_port, default_network_tcps_port,
     default_network_websocket_port, default_network_websockets_port, default_placement_center,
     default_storage, default_system, default_tcp_thread,
@@ -61,6 +61,8 @@ pub struct BrokerMqttConfig {
     pub storage: Storage,
     #[serde(default = "default_auth")]
     pub auth: Auth,
+    #[serde(default = "default_jwt")]
+    pub jwt: JWT,
     #[serde(default = "default_log")]
     pub log: Log,
 }

@@ -114,8 +114,11 @@ openraft = { git = "https://github.com/databendlabs/openraft.git", features = [
 ] }
 validator = { version = "0.18", features = ["derive"] }
 rand = "0.8.5"
+jsonwebtoken = "9.3.0"
+chrono = "0.4.39"
 #format
 prettytable-rs = "^0.10"
+humantime = "2.1.0"
 
 
 
@@ -135,6 +138,7 @@ journal-client = { path = "src/journal-client" }
 storage-adapter = { path = "src/storage-adapter" }
 cmd = { path = "src/cmd" }
 common-base = { path = "src/common/base" }
+common-jwt = { path = "src/common/jwt" }
 rocksdb-engine = { path = "src/common/rocksdb-engine" }
 metadata-struct = { path = "src/common/metadata-struct" }
 third-driver = { path = "src/common/third-driver" }
