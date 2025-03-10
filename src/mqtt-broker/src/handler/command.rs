@@ -35,9 +35,9 @@ use opentelemetry::trace::{Span, SpanKind, Tracer};
 use protocol::mqtt::common::{
     is_mqtt3, is_mqtt4, is_mqtt5, ConnectReturnCode, DisconnectReasonCode, MqttPacket, MqttProtocol,
 };
+use rate_limiter::token_bucket::get_default_rate_limiter_manager;
 use schema_register::schema::SchemaRegisterManager;
 use storage_adapter::storage::StorageAdapter;
-use rate_limiter::token_bucket::get_default_rate_limiter_manager;
 
 // S: message storage adapter
 #[derive(Clone)]
@@ -132,7 +132,6 @@ where
                 last_will_properties,
                 login,
             ) => {
-
                 // connect rate limiter
                 if get_default_rate_limiter_manager()
                     .get_or_register(
@@ -222,25 +221,24 @@ where
             }
 
             MqttPacket::Publish(publish, publish_properties) => {
-
                 if get_default_rate_limiter_manager()
-                // todo Eventually, we will use dynamic configuration
-                .get_or_register(
-                    tcp_connection.connection_id.to_string(),
-                    broker_mqtt_conf().rate_limiter.publish,
-                )
-                .await
-                .check_key()
-                .await
-            {
-                return Some(response_packet_mqtt_connect_fail(
-                    &tcp_connection.get_protocol(),
-                    ConnectReturnCode::ConnectionRateExceeded,
-                    &None,
-                    None,
-                ));
-            }
-            
+                    // todo Eventually, we will use dynamic configuration
+                    .get_or_register(
+                        tcp_connection.connection_id.to_string(),
+                        broker_mqtt_conf().rate_limiter.publish,
+                    )
+                    .await
+                    .check_key()
+                    .await
+                {
+                    return Some(response_packet_mqtt_connect_fail(
+                        &tcp_connection.get_protocol(),
+                        ConnectReturnCode::ConnectionRateExceeded,
+                        &None,
+                        None,
+                    ));
+                }
+
                 let mut context = CustomContext::default();
                 if let Some(ref p) = publish_properties {
                     p.user_properties.iter().for_each(|(k, v)| {

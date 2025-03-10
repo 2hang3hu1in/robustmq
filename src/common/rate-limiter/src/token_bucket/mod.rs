@@ -175,7 +175,7 @@ mod test {
 
             let handle = tokio::spawn(async move {
                 if lm
-                    .get_or_register("test_limiter".to_string(), 3000)
+                    .get_or_register("test_limiter".to_string(), 50)
                     .await
                     .check_key()
                     .await
