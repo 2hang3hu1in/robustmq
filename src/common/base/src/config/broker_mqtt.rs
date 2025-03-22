@@ -300,6 +300,7 @@ mod tests {
 
     #[test]
     fn config_default_test() {
+        println!("{}", env!("CARGO_MANIFEST_DIR"));
         let path = format!(
             "{}/../../../config/mqtt-server.toml",
             env!("CARGO_MANIFEST_DIR")
