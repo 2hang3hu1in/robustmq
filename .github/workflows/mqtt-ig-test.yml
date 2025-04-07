@@ -37,7 +37,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64]
     timeout-minutes: 60
     container:
-      image: robustmq/rust-ci-env:latest
+      image: localhost:5000/rust-ci-env:latest
     steps:
       - uses: actions/checkout@v4
         with:
