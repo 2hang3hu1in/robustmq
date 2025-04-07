@@ -85,6 +85,7 @@ pub fn start_mqtt_broker_server(stop_send: broadcast::Sender<bool>) {
             let message_storage_adapter = Arc::new(MemoryStorageAdapter::new());
             let server = MqttBroker::new(client_pool, message_storage_adapter, metadata_cache);
             server.start(stop_send);
+            println!("storage_type:{:?}", conf.storage.storage_type);
         }
         // StorageType::Mysql => {
         //     if conf.storage.mysql_addr.is_empty() {
