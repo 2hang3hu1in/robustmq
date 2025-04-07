@@ -34,10 +34,10 @@ env:
 jobs:
   linux-tests:
     name: cargo test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 60
     container:
-      image: amd64/rust
+      image: robustmq/rust-ci-env:latest
     steps:
       - uses: actions/checkout@v4
         with:
