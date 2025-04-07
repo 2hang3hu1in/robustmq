@@ -50,7 +50,7 @@ jobs:
         #   crate: cargo-nextest
         #   args: --locked
       - name: Run tests
-        run: echo "Hello from self-hosted runner"
+        run: make mqtt-ig-test-ci
         # we need change shell scripts to product only one junit.xml
 #      - name: Upload JUnit report
 #        # Run this step even if the test step fails. Upload it right now because
