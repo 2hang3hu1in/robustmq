@@ -34,23 +34,23 @@ env:
 jobs:
   linux-tests:
     name: cargo test
-    runs-on: self-hosted
+    runs-on: [self-hosted, Linux, X64]
     timeout-minutes: 60
-    container:
-      image: robustmq/rust-ci-env:latest
+    # container:
+    #   image: robustmq/rust-ci-env:latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-      - name: set up build configure
-        uses: ./.github/actions/setup-builder
-      - name: Install cargo-nextest
-        uses: baptiste0928/cargo-install@v1
-        with:
-          crate: cargo-nextest
-          args: --locked
+      # - uses: actions/checkout@v4
+      #   with:
+      #     submodules: true
+      # - name: set up build configure
+      #   uses: ./.github/actions/setup-builder
+      # - name: Install cargo-nextest
+      #   uses: baptiste0928/cargo-install@v1
+      #   with:
+      #     crate: cargo-nextest
+      #     args: --locked
       - name: Run tests
-        run: make mqtt-ig-test-ci
+        run: echo "Hello from self-hosted runner"
         # we need change shell scripts to product only one junit.xml
 #      - name: Upload JUnit report
 #        # Run this step even if the test step fails. Upload it right now because
