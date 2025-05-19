@@ -74,6 +74,12 @@ impl CustomRateLimiterManager {
     }
 }
 
+impl Default for CustomRateLimiterManager {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[async_trait]
 impl RateLimiterManagerExt for CustomRateLimiterManager {
     async fn get_or_register(
@@ -124,6 +130,11 @@ impl NoneRateLimiterManager {
     }
 }
 
+impl Default for NoneRateLimiterManager {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 #[async_trait]
 impl RateLimiterManagerExt for NoneRateLimiterManager {
     async fn get_or_register(&self, _: String, _: u32) -> Arc<dyn RateLimiterExt + Send + Sync> {
