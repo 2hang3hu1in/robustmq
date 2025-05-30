@@ -38,6 +38,7 @@ jobs:
     timeout-minutes: 300
     container:
       image: amd64/rust
+      options: --network=host
     steps:
       - uses: actions/checkout@v4
         with:
