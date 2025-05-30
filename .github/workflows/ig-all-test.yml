@@ -48,6 +48,10 @@ jobs:
           echo "http_proxy=http://47.121.199.172:8910" >> $GITHUB_ENV
           echo "https_proxy=http://47.121.199.172:8910" >> $GITHUB_ENV
           echo "all_proxy=socks5://47.121.199.172:8910" >> $GITHUB_ENV
+      - name: Disable proxy for apt
+        run: |
+          echo 'Acquire::http::Proxy "false";' | sudo tee /etc/apt/apt.conf.d/99no-proxy
+          echo 'Acquire::https::Proxy "false";' | sudo tee -a /etc/apt/apt.conf.d/99no-proxy
       - name: set up build configure
         uses: ./.github/actions/setup-builder
       - name: Install cargo-nextest
