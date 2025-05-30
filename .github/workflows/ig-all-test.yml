@@ -45,10 +45,10 @@ jobs:
       # ✅ 设置代理环境变量
       - name: Set proxy env
         run: |
-          echo "http_proxy=http://147.121.199.172:8910" >> $GITHUB_ENV
-          echo "https_proxy=http://147.121.199.172:8910" >> $GITHUB_ENV
-          echo "HTTP_PROXY=http://147.121.199.172:8910" >> $GITHUB_ENV
-          echo "HTTPS_PROXY=http://147.121.199.172:8910" >> $GITHUB_ENV
+          echo "http_proxy=http://47.121.199.172:8910 " >> $GITHUB_ENV
+          echo "https_proxy=http://47.121.199.172:8910 " >> $GITHUB_ENV
+          echo "HTTP_PROXY=http://47.121.199.172:8910 " >> $GITHUB_ENV
+          echo "HTTPS_PROXY=http://47.121.199.172:8910 " >> $GITHUB_ENV
       # - name: Disable proxy for apt
       #   run: |
       #     echo 'Acquire::http::Proxy "false";' | tee /etc/apt/apt.conf.d/99no-proxy
@@ -61,8 +61,8 @@ jobs:
       - name: Install cargo-nextest
         uses: baptiste0928/cargo-install@v1
         env:
-          HTTP_PROXY: http://147.121.199.172:8910
-          HTTPS_PROXY: http://147.121.199.172:8910
+          HTTP_PROXY: http://47.121.199.172:8910 
+          HTTPS_PROXY: http://47.121.199.172:8910 
         with:
           crate: cargo-nextest
           args: --locked
