@@ -79,6 +79,10 @@ pub fn start_mqtt_broker_server(stop_send: broadcast::Sender<bool>) {
         client_pool.clone(),
         conf.cluster_name.clone(),
     ));
+    println!(
+        "MQTT Broker service started, cluster name: {}, broker id: {}",
+        conf.cluster_name, conf.broker_id
+    );
     // let storage_type = conf.storage.storage_type.clone();
     let storage_type = StorageType::from_str(conf.storage.storage_type.as_str())
         .expect("Storage type not supported");
