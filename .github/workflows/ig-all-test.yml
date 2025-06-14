@@ -41,6 +41,7 @@ jobs:
       https_proxy: http://host.docker.internal:7890
     container:
       image: amd64/rust
+      options: --add-host=host.docker.internal:host-gateway
     steps:
       - uses: actions/checkout@v4
         with:
