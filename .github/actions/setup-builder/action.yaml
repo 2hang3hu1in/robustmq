@@ -23,13 +23,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install Build Dependencies
-      shell: bash
-      run: |
-        apt-get update
-        apt-get install -y protobuf-compiler
-        apt-get install -y llvm libclang-dev
-        apt-get install -y cmake
+    # - name: Install Build Dependencies
+    #   shell: bash
+    #   run: |
+    #     apt-get update
+    #     apt-get install -y protobuf-compiler
+    #     apt-get install -y llvm libclang-dev
+    #     apt-get install -y cmake
     - uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
