@@ -36,6 +36,9 @@ jobs:
     name: cargo test
     runs-on: self-hosted
     timeout-minutes: 300
+    env:
+      http_proxy: http://host.docker.internal:7890
+      https_proxy: http://host.docker.internal:7890
     container:
       image: amd64/rust
     steps:
